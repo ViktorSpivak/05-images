@@ -1,12 +1,7 @@
 const contactsActions = require("./contacts");
-
-// contactsActions.getContactById(9);
 const argv = require("yargs").argv;
-// console.log(argv);
 
 function invokeAction({ action, id, name, email, phone }) {
-  // console.log(action, id, name, email, phone);
-
   switch (action) {
     case "list":
       contactsActions.listContacts();
