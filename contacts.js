@@ -6,13 +6,13 @@ const contactsPath = path.join(__dirname, "./db/contacts.json");
 exports.listContacts = () =>
   fs.readFile(contactsPath, "utf8", (err, data) => {
     if (err) throw err;
-    console.log(JSON.parse(data));
+    console.table(JSON.parse(data));
   });
 exports.getContactById = (contactId) => {
   fs.readFile(contactsPath, "utf8", (err, data) => {
     if (err) throw err;
     const ContactById = JSON.parse(data).find((el) => el.id === contactId);
-    console.log(ContactById);
+    console.table(ContactById);
   });
 };
 
