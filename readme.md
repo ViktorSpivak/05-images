@@ -1,8 +1,8 @@
 Список элементов
-![alt text](C:\Users\Viktor_S\Pictures\Screenshots\List)
+![alt text](screenshots\List)
 Елемент 5
-![alt text](C:\Users\Viktor_S\Pictures\Screenshots\Elem_5)
+![alt text](screenshots\Elem_5)
 Добавить элемент
-![alt text](C:\Users\Viktor_S\Pictures\Screenshots\Add_elem)
+![alt text](screenshots\Add_elem)
 Удалить элемент
-![alt text](C:\Users\Viktor_S\Pictures\Screenshots\Delete_elem)
+![alt text](screenshots\Delete_elem)
