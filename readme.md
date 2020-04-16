@@ -1,7 +1,7 @@
-![alt text](screenshots\List)
+![alt text](screenshots\List.png)
 
-![alt text](screenshots\Elem_5)
+![alt text](screenshots\Elem_5.png)
 
-![alt text](screenshots\Add_elem)
+![alt text](screenshots\Add_elem.png)
 
-![alt text](screenshots\Delete_elem)
+![alt text](screenshots\Delete_elem.png)
