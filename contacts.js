@@ -4,27 +4,21 @@ const { promises: fsPromises } = fs;
 const shortid = require("shortid");
 const contactsPath = path.join(__dirname, "./db/contacts.json");
 
-exports.listContacts = async () =>
-  await fsPromises.readFile(contactsPath, "utf8");
+exports.listContacts = () => fsPromises.readFile(contactsPath, "utf8");
 
 exports.getContactById = async (contactId) => {
-  const contacts = await fsPromises.readFile(contactsPath, "utf8");
-  const ContactById = JSON.parse(contacts).find(
-    (el) => el.id === Number(contactId)
-  );
+  const contacts = JSON.parse(await fsPromises.readFile(contactsPath, "utf8"));
+  const ContactById = contacts.find((el) => el.id === Number(contactId));
   return ContactById;
 };
 
 exports.removeContact = async (contactId) => {
-  const contacts = await fsPromises.readFile(contactsPath, "utf8");
-
-  const isIdIn = JSON.parse(contacts).some(
-    (el) => el.id.toString() === contactId
-  );
+  const contacts = JSON.parse(await fsPromises.readFile(contactsPath, "utf8"));
+  const isIdIn = contacts.some((el) => el.id.toString() === contactId);
 
   if (isIdIn) {
     const listWithRemovedContact = JSON.stringify(
-      JSON.parse(contacts).filter((el) => el.id.toString() !== contactId)
+      contacts.filter((el) => el.id.toString() !== contactId)
     );
     fs.writeFile(contactsPath, listWithRemovedContact, (err) => {
       if (err) throw err;
@@ -36,9 +30,9 @@ exports.removeContact = async (contactId) => {
 exports.addContact = async (name, email, phone) => {
   const id = shortid.generate();
   const newContact = { id, name, email, phone };
-  const contacts = await fsPromises.readFile(contactsPath, "utf8");
+  const contacts = JSON.parse(await fsPromises.readFile(contactsPath, "utf8"));
   const listWithAddedContact = JSON.stringify(
-    contacts ? [...JSON.parse(contacts), newContact] : [newContact]
+    contacts ? [...contacts, newContact] : [newContact]
   );
   fs.writeFile(contactsPath, listWithAddedContact, (err) => {
     if (err) throw err;
