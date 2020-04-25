@@ -3,20 +3,33 @@ const Joi = require("@hapi/joi");
 const router = express.Router();
 const contactsActions = require("../contacts");
 
-router.post("/", (req, res, next) => {
-  const rules = Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string().required(),
-    phone: Joi.string().required(),
+const isValidRequest = (req, res, next) => {
+  const rules = Joi.object().keys({
+    name: Joi.any(),
+    email: Joi.any(),
+    phone: Joi.any(),
   });
   const validationResult = rules.validate(req.body);
   if (validationResult.error) {
-    res.status(400).header({ message: "missing required name field" });
-    return res.send(validationResult);
+    res.status(400).send({ message: "missing required name field" });
+    return;
+  }
+  if (req.method === "POST") {
+    const rules = Joi.object({
+      name: Joi.string().required(),
+      email: Joi.string().required(),
+      phone: Joi.string().required(),
+    });
+    const validationResult = rules.validate(req.body);
+    if (validationResult.error) {
+      res.status(400).send({ message: "missing required name field" });
+      return;
+    }
   }
   next();
-});
-router.post("/", async (req, res) => {
+};
+
+router.post("/", isValidRequest, async (req, res) => {
   const { name, email, phone } = req.body;
   const newContact = await contactsActions.addContact(name, email, phone);
   res.status(201).send(newContact);
@@ -34,33 +47,7 @@ router.delete("/:contactId", async (req, res) => {
   }
 });
 
-router.patch("/:contactId", (req, res, next) => {
-  const isProperty = (prop) => req.body.hasOwnProperty(prop);
-  const hasProperty =
-    isProperty("name") || isProperty("email") || isProperty("phone");
-
-  if (!hasProperty) {
-    res.status(400).send({ message: "missing fields" });
-    return;
-  }
-  const rules = Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string().required(),
-    phone: Joi.string().required(),
-  }).keys();
-
-  const validationResult = rules.validate(req.body);
-  if (validationResult.error) {
-    res
-      .status(400)
-      .header({ message: "missing required name field" })
-      .send(validationResult);
-    return;
-  }
-  next();
-});
-
-router.patch("/:contactId", async (req, res) => {
+router.patch("/:contactId", isValidRequest, async (req, res) => {
   const propertiesForUpdate = Object.entries(req.body);
   const { contactId } = req.params;
   const newContact = await contactsActions.updateContact(

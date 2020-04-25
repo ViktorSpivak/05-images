@@ -8,7 +8,7 @@ exports.listContacts = () => fsPromises.readFile(contactsPath, "utf8");
 
 exports.getContactById = async (contactId) => {
   const contacts = JSON.parse(await fsPromises.readFile(contactsPath, "utf8"));
-  const ContactById = contacts.find((el) => el.id === Number(contactId));
+  const ContactById = contacts.find((el) => el.id.toString() === contactId);
   return ContactById;
 };
 

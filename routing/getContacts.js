@@ -12,9 +12,7 @@ router.get("/:contactId", async (req, res) => {
   if (contactById) {
     res.send(contactById);
   } else {
-    res.status(404);
-    res.header({ message: "Not found" });
-    res.send();
+    res.status(404).send({ message: "Not found" });
   }
 });
 
