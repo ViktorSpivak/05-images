@@ -29,7 +29,18 @@
     "email": "nibh@semsempererat.com",
     "phone": "(501) 472-5218"
   },
-  { "id": 7, "name": "ok", "email": "qwerty123", "phone": "1234523456" },
+  {
+    "id": 6,
+    "name": "Abbot Franks",
+    "email": "scelerisque@magnis.org",
+    "phone": "(186) 568-3720"
+  },
+  {
+    "id": 7,
+    "name": "Reuben Henry",
+    "email": "pharetra.ut@dictum.co.uk",
+    "phone": "(715) 598-5792"
+  },
   {
     "id": 8,
     "name": "Simon Morton",

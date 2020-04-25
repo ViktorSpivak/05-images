@@ -4,31 +4,18 @@ const router = express.Router();
 const contactsActions = require("../contacts");
 
 const isValidRequest = (req, res, next) => {
-  const rules = Joi.object().keys({
-    name: Joi.any(),
-    email: Joi.any(),
-    phone: Joi.any(),
+  const rules = Joi.object({
+    name: Joi.string(),
+    email: Joi.string(),
+    phone: Joi.string(),
   });
   const validationResult = rules.validate(req.body);
   if (validationResult.error) {
     res.status(400).send({ message: "missing required name field" });
     return;
   }
-  if (req.method === "POST") {
-    const rules = Joi.object({
-      name: Joi.string().required(),
-      email: Joi.string().required(),
-      phone: Joi.string().required(),
-    });
-    const validationResult = rules.validate(req.body);
-    if (validationResult.error) {
-      res.status(400).send({ message: "missing required name field" });
-      return;
-    }
-  }
   next();
 };
-
 router.post("/", isValidRequest, async (req, res) => {
   const { name, email, phone } = req.body;
   const newContact = await contactsActions.addContact(name, email, phone);

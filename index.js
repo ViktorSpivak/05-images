@@ -1,12 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const Joi = require("@hapi/joi");
 const morgan = require("morgan");
 const getContacts = require("./routing/getContacts");
 const editContacts = require("./routing/editContacts");
 
 // const argv = require("yargs").argv;
-const contactsActions = require("./contacts");
 
 const app = express();
 
