@@ -10,19 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ViktorSpivak/01-node-basics.git"
+    "url": "git+https://github.com/ViktorSpivak/02-node-basics.git"
   },
   "author": "Viktor",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ViktorSpivak/01-node-basics/issues"
+    "url": "https://github.com/ViktorSpivak/02-node-basics/issues"
   },
-  "homepage": "https://github.com/ViktorSpivak/01-node-basics#readme",
+  "homepage": "https://github.com/ViktorSpivak/02-node-basics#readme",
   "devDependencies": {
     "nodemon": "^2.0.3",
     "yargs": "^15.3.1"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "shortid": "^2.2.15"
   }
 }
