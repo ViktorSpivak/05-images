@@ -1,12 +1,12 @@
 {
   "name": "01-node-basics",
   "version": "1.0.0",
-  "description": "",
+  "description": "Список элементов\r ![alt text](screenshots/List.png)\r Елемент 5\r ![alt text](screenshots/Elem_5.png)\r Добавить элемент\r ![alt text](screenshots/Add_elem.png)\r Удалить элемент\r ![alt text](screenshots/Delete_elem.png)",
   "main": "index.js",
   "scripts": {
     "test": "",
-    "start": " node index.js",
-    "dev": "nodemon index.js"
+    "start": " node start.js",
+    "dev": "nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,12 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.10",
     "morgan": "^1.10.0",
     "shortid": "^2.2.15"
-  }
+  },
+  "keywords": []
 }
