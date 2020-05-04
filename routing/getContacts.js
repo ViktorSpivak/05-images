@@ -1,19 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const contactsActions = require("../contacts");
+const contactsActions = require("../controllers/actions");
 
-router.get("/", async (req, res) => {
-  const allContacts = await contactsActions.listContacts();
-  res.send(allContacts);
-});
-router.get("/:contactId", async (req, res) => {
-  const { contactId } = req.params;
-  const contactById = await contactsActions.getContactById(contactId);
-  if (contactById) {
-    res.send(contactById);
-  } else {
-    res.status(404).send({ message: "Not found" });
-  }
-});
+router.get("/", contactsActions.listContacts);
+router.get("/:contactId", contactsActions.getContactById);
 
 module.exports = router;
