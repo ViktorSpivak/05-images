@@ -32,6 +32,8 @@ module.exports = class myMongoDBServer {
   initRoutes = () => {
     this.server.use("/contacts", getContacts);
     this.server.use("/contacts", editContacts);
+    this.server.use("/auth", editContacts);
+    this.server.use("/users", getContacts);
   };
   initDataBase = async () => {
     try {

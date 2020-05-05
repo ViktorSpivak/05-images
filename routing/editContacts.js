@@ -3,7 +3,20 @@ const router = express.Router();
 const contactsActions = require("../controllers/actions");
 const validations = require("../controllers/validation");
 
-router.post("/", validations.validateRequest, contactsActions.addContact);
+router.post(
+  "/register",
+  validations.validateRequest,
+  contactsActions.createUser
+);
+
+router.post("/login", validations.validateSignIn, contactsActions.loginUser);
+
+router.post(
+  "/logout",
+  validations.validateSignIn,
+  contactsActions.verifyToken,
+  contactsActions.logout
+);
 
 router.delete("/:contactId", contactsActions.removeContact);
 
