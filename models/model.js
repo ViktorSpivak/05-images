@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 mongoose.set("useFindAndModify", false);
 const itemSchema = new Schema({
   email: String,
+  name: String,
   password: String,
   subscription: {
     type: String,

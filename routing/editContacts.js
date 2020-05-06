@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const contactsActions = require("../controllers/actions");
+const contactsActions = require("../controllers/user.controller");
 const validations = require("../controllers/validation");
 
 router.post(
@@ -13,7 +13,7 @@ router.post("/login", validations.validateSignIn, contactsActions.loginUser);
 
 router.post(
   "/logout",
-  validations.validateSignIn,
+  // validations.validateSignIn,
   contactsActions.verifyToken,
   contactsActions.logout
 );
@@ -22,7 +22,8 @@ router.delete("/:contactId", contactsActions.removeContact);
 
 router.patch(
   "/:contactId",
-  validations.validateRequest,
+  contactsActions.verifyToken,
+  // validations.validateRequest,
   contactsActions.updateContact
 );
 

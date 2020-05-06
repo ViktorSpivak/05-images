@@ -1,6 +1,6 @@
 const Joi = require("@hapi/joi");
 
-class validations {
+class Validations {
   validateRequest = (req, res, next) => {
     const rules = Joi.object({
       name: Joi.string().required(),
@@ -10,8 +10,7 @@ class validations {
     });
     const validationResult = rules.validate(req.body);
     if (validationResult.error) {
-      res.status(422).json({ message: "Missing required field" });
-      return;
+      return res.status(422).json({ message: "Missing required field" });
     }
     next();
   };
@@ -22,10 +21,9 @@ class validations {
     });
     const validationResult = rules.validate(req.body);
     if (validationResult.error) {
-      res.status(422).json({ message: "Missing required field" });
-      return;
+      return res.status(422).json({ message: "Missing required field" });
     }
     next();
   };
 }
-module.exports = new validations();
+module.exports = new Validations();
