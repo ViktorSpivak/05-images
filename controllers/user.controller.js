@@ -1,4 +1,3 @@
-const itemModel = require("../models/model");
 const authActions = require("./authActions");
 const actions = require("./actions");
 
@@ -24,10 +23,11 @@ exports.createUser = async (req, res, next) => {
           subscription: user.subscription,
         },
       });
-    } else
+    } else {
       return res.status(400).json({
         message: "Email in use",
       });
+    }
   } catch (error) {
     next(error);
   }
@@ -79,9 +79,15 @@ exports.verifyToken = async (req, res, next) => {
     try {
       userId = authActions.verifyToken(token).id;
       const user = await actions.findById(userId);
+
       if (!user) {
         return res.status(401).json({ message: "Not authorized" });
       }
+
+      if (user.token !== token) {
+        return res.status(401).json({ message: "Not authorized" });
+      }
+
       req.user = user;
       req.token = token;
       next();
@@ -102,14 +108,16 @@ exports.currentUser = async (req, res, next) => {
     });
   } catch (error) {
     res.status(401).json({ message: "Not authorized" });
+    next(error);
   }
 };
-exports.listContacts = async (req, res) => {
+exports.listContacts = async (req, res, next) => {
   try {
-    const item = await actions.findAll();
-    return res.status(200).json(item);
+    const { page, limit, sort } = req.query;
+    const item = await actions.findAll(page, limit, sort);
+    return res.status(200).json(item.docs);
   } catch (error) {
-    res.send(error);
+    next(error);
   }
 };
 exports.getContactById = async (req, res, next) => {

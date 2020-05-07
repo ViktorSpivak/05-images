@@ -1,30 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const contactsActions = require("../controllers/user.controller");
+const userController = require("../controllers/user.controller");
 const validations = require("../controllers/validation");
 
 router.post(
   "/register",
   validations.validateRequest,
-  contactsActions.createUser
+  userController.createUser
 );
 
-router.post("/login", validations.validateSignIn, contactsActions.loginUser);
+router.post("/login", validations.validateSignIn, userController.loginUser);
 
-router.post(
-  "/logout",
-  // validations.validateSignIn,
-  contactsActions.verifyToken,
-  contactsActions.logout
-);
+router.post("/logout", userController.verifyToken, userController.logout);
 
-router.delete("/:contactId", contactsActions.removeContact);
+router.delete("/:contactId", userController.removeContact);
 
 router.patch(
   "/:contactId",
-  contactsActions.verifyToken,
-  // validations.validateRequest,
-  contactsActions.updateContact
+  userController.verifyToken,
+  userController.updateContact
 );
 
 module.exports = router;

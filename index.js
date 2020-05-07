@@ -17,6 +17,7 @@ module.exports = class myMongoDBServer {
     this.initServer();
     this.initMiddlewares();
     this.initRoutes();
+    this.initErrorHandler();
     await this.initDataBase();
     this.startListening();
   }
@@ -35,6 +36,12 @@ module.exports = class myMongoDBServer {
     this.server.use("/auth", editContacts);
     this.server.use("/users", getContacts);
   };
+  initErrorHandler = () => {
+    this.server.use((err, req, res, next) => {
+      console.error("Error:", err.message);
+      res.status(500).send("Something broke!");
+    });
+  };
   initDataBase = async () => {
     try {
       await mongoose.connect(URLdb, {
@@ -46,9 +53,6 @@ module.exports = class myMongoDBServer {
       console.log("Connecting error:", error.message);
       process.exit(1);
     }
-
-    // const db = mongoose.connection;
-    // db.on("error", console.log(ERRoR));
   };
   startListening = () => {
     this.server.listen(3001, () => {

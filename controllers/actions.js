@@ -9,12 +9,14 @@ class Controller {
       password: passwordHash,
       subscription,
     });
-  findAll = () => itemModel.find();
+  findAll = (page, limit, sort) => {
+    const options = limit && { page, limit, sort };
+    return itemModel.paginate({}, options);
+  };
+
   findAndUpdate = (id, newProperties) =>
     itemModel.findByIdAndUpdate(id, { $set: newProperties }, { new: true });
   findAndDelete = (id) => itemModel.findOneAndDelete(id);
-  // findByIdAndUpdate = (id, elem) =>
-  //   itemModel.findByIdAndUpdate(id, elem, { new: true });
   findById = (id) => itemModel.findById(id);
 }
 module.exports = new Controller();

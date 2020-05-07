@@ -3,7 +3,7 @@ const Joi = require("@hapi/joi");
 class Validations {
   validateRequest = (req, res, next) => {
     const rules = Joi.object({
-      name: Joi.string().required(),
+      name: Joi.string(),
       email: Joi.string().required(),
       password: Joi.string().required(),
       subscription: Joi.string(),
