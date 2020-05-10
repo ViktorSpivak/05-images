@@ -9,7 +9,7 @@ const itemSchema = new Schema({
   subscription: {
     type: String,
     enum: ["free", "pro", "premium"],
-    // default: "free",
+    default: "free",
   },
   token: String,
 });
