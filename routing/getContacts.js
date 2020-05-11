@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const contactsActions = require("../controllers/actions");
+const userController = require("../controllers/user.controller");
 
-router.get("/", contactsActions.listContacts);
-router.get("/:contactId", contactsActions.getContactById);
+router.get("/", userController.verifyToken, userController.listContacts);
+
+router.get("/current", userController.verifyToken, userController.currentUser);
+
+router.get(
+  "/:contactId",
+  userController.verifyToken,
+  userController.getContactById
+);
 
 module.exports = router;
