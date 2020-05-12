@@ -13,6 +13,10 @@ router.post("/login", validations.validateSignIn, userController.loginUser);
 
 router.post("/logout", userController.validateToken, userController.logout);
 
+router.post("/avatar", userController.writeAvatar(), (req, res) =>
+  console.log(res.send("Avatar was added"))
+);
+
 router.delete("/:contactId", userController.removeContact);
 
 router.patch(
