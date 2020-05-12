@@ -166,8 +166,6 @@ exports.updateContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const newProperties = req.body;
-    // console.log(newProperties);
-
     const user = await actions.findAndUpdate(contactId, newProperties);
     if (user) {
       return res.status(200).json(user);
@@ -178,20 +176,16 @@ exports.updateContact = async (req, res, next) => {
     next(error);
   }
 };
-exports.writeAvatar = (req, res, next) => {
-  try {
-    const storage = multer.diskStorage({
-      destination: "public/images",
-      filename: (req, file, cb) => {
-        const { name, ext } = path.parse(file.originalname);
-        cb(null, name + "__" + shortId() + ext);
-      },
-    });
-    const upload = multer({ storage: storage });
-    return upload.single("avatar");
-  } catch (error) {
-    next(error);
-  }
+exports.writeAvatar = () => {
+  const storage = multer.diskStorage({
+    destination: "public/images",
+    filename: (req, file, cb) => {
+      const { name, ext } = path.parse(file.originalname);
+      cb(null, name + "__" + shortId() + ext);
+    },
+  });
+  const upload = multer({ storage: storage });
+  return upload.single("avatar");
 };
 exports.multerHandler = () => {
   const upload = multer();
@@ -201,14 +195,17 @@ exports.updateAllFieldsContact = async (req, res, next) => {
   try {
     const contactId = req.user.id;
     const newProperties = req.body;
-    const newAvatar = req.files[0].buffer;
-    const avatarFileName = path.basename(req.user.avatarURL);
-    const avatarPath = path.join(
-      __dirname,
-      `../public/images/${avatarFileName}`
-    );
-    await fsPromises.writeFile(avatarPath, newAvatar);
-    const user = await actions.findAndUpdate(contactId, newProperties);
+    if (req.files.length) {
+      const newAvatar = req.files[0].buffer;
+      const avatarFileName = path.basename(req.user.avatarURL);
+      const avatarPath = path.join(
+        __dirname,
+        `../public/images/${avatarFileName}`
+      );
+      await fsPromises.writeFile(avatarPath, newAvatar);
+    }
+
+    await actions.findAndUpdate(contactId, newProperties);
     return res.status(200).json({
       avatarURL: req.user.avatarURL,
     });
