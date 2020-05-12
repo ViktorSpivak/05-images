@@ -11,13 +11,20 @@ router.post(
 
 router.post("/login", validations.validateSignIn, userController.loginUser);
 
-router.post("/logout", userController.verifyToken, userController.logout);
+router.post("/logout", userController.validateToken, userController.logout);
 
 router.delete("/:contactId", userController.removeContact);
 
 router.patch(
+  "/avatars",
+  userController.validateToken,
+  userController.multerHandler(),
+  userController.updateAllFieldsContact
+);
+
+router.patch(
   "/:contactId",
-  userController.verifyToken,
+  userController.validateToken,
   userController.updateContact
 );
 

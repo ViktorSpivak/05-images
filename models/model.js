@@ -5,11 +5,12 @@ mongoose.set("useFindAndModify", false);
 const itemSchema = new Schema({
   email: String,
   name: String,
+  avatarURL: String,
   password: String,
   subscription: {
     type: String,
     enum: ["free", "pro", "premium"],
-    // default: "free",
+    default: "free",
   },
   token: String,
 });
