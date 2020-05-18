@@ -2,12 +2,13 @@ const itemModel = require("../models/model");
 
 class Controller {
   findEmail = (value) => itemModel.findOne({ email: value });
-  createUser = (passwordHash, email, name, subscription) =>
+  createUser = (passwordHash, email, name, subscription, avatarURL) =>
     itemModel.create({
       name,
       email,
       password: passwordHash,
       subscription,
+      avatarURL,
     });
   findAll = (page, limit, sort) => {
     const options = limit && { page, limit, sort };
